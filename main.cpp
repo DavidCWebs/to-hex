@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <vector>
+#include <typeinfo>
 
 /**
  * Print a string as hexadecimal values.
@@ -11,6 +13,19 @@ void printToHex(std::string s)
 	std::cout << "printToHex() for " << s << ": ";
 	for(size_t i = 0; i < s.size(); i++) {
 		std::cout << std::hex << std::setfill('0') << std::setw(2) << (int)s[i];
+	}
+	std::cout << '\n';
+}
+
+/**
+ * Print a string as hexadecimal values using printf()
+ *
+ * */ 
+void printToHexCStyle(std::string s)
+{
+	std::cout << "printToHex() for " << s << ": ";
+	for(size_t i = 0; i < s.size(); i++) {
+		printf("%02hhx", s[i]);
 	}
 	std::cout << '\n';
 }
@@ -43,6 +58,17 @@ std::string intToHexString2(int num)
 	return result;
 }
 
+/**
+ * Build a hex string representation of bytes.
+ * 
+ * */
+void charToHexString(const char& c, std::string& s)
+{
+	std::stringstream ss;
+	ss << std::setfill('0') << std::setw(2) << std::hex << (0xff & (int)c);
+	s.append(ss.str());
+}
+
 int main()
 {
 	int num;
@@ -52,7 +78,15 @@ int main()
 	std::cout << "Enter a string: ";
 	std::cin >> str;
 	printToHex(str);
+	printToHexCStyle(str);
 	std::cout << "result 1: " << intToHexString1(num) << '\n';
 	std::cout << "result 2: " << intToHexString2(num) << '\n';
+
+	std::string s;
+	std::vector<unsigned char> charVec{0xde, 0xad, 0xbe, 0xef};
+	for (size_t i = 0; i < charVec.size(); i++) {
+		charToHexString(charVec[i], s);
+	}
+	std::cout << "Bytes vector to a string: " << s << '\n';
 	return 0;
 }
