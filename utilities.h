@@ -9,6 +9,39 @@
 #include <typeinfo>
 
 namespace utilities {
+
+int hexDigitToInt(char digit)
+{
+	digit = tolower(digit);
+	if (digit >= '0' && digit <='9')
+	       return (int)(digit - '0');
+	else if (digit >= 'a' && digit <= 'f') {
+		return (int)(digit - '1' - '0') + 10; 
+	}	
+	return -1;
+}
+
+int hexstringToBytes(std::string const&	hexstring, std::vector<unsigned char>& result)
+{
+	if (hexstring.size() % 2) {
+		std::cerr << "The hexstring is not an even number of characters.\n";
+		exit(EXIT_FAILURE);
+	}
+	
+	size_t resultLength = hexstring.size() / 2;
+	size_t i = 0;
+	for (auto it = hexstring.begin(); it != hexstring.end(); it = it + 2) {
+		int sixteens = hexDigitToInt(*it);
+		int units = hexDigitToInt(*std::next(it));
+		int num = (sixteens * 16) + units;
+		std::cout << "num = " << std::dec << num << '\n';
+		result.push_back(num);
+		i++;
+	}
+	return resultLength;
+}
+	
+	
 /**
  * Print a string as hexadecimal values.
  *

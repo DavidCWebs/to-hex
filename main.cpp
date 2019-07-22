@@ -20,5 +20,16 @@ int main()
 		utilities::charToHexString(charVec[i], s);
 	}
 	std::cout << "Bytes vector to a string: " << s << '\n';
+
+	std::cout << "Enter a hexstring:\n";
+	std::string hexstring;
+	std::cin >> hexstring;
+	std::vector<unsigned char> bytes;
+	utilities::hexstringToBytes(hexstring, bytes);
+	std::cout << "size of bytes: " << bytes.size() << '\n';
+	for (auto& el : bytes)
+		std::cout << (int)el << " ";
+	std::cout << '\n';
+
 	return 0;
 }
