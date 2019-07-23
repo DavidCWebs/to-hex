@@ -28,7 +28,7 @@ int main()
 	utilities::hexstringToBytes(hexstring, bytes);
 	std::cout << "size of bytes: " << bytes.size() << '\n';
 	for (auto& el : bytes)
-		std::cout << (int)el << " ";
+		std::cout << std::dec << (int)el << " ";
 	std::cout << '\n';
 
 	return 0;

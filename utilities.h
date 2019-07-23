@@ -33,9 +33,7 @@ int hexstringToBytes(std::string const&	hexstring, std::vector<unsigned char>& r
 	for (auto it = hexstring.begin(); it != hexstring.end(); it = it + 2) {
 		int sixteens = hexDigitToInt(*it);
 		int units = hexDigitToInt(*std::next(it));
-		int num = (sixteens * 16) + units;
-		std::cout << "num = " << std::dec << num << '\n';
-		result.push_back(num);
+		result.push_back((sixteens << 4) | units);
 		i++;
 	}
 	return resultLength;
